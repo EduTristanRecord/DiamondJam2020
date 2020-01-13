@@ -21,7 +21,7 @@ public class BulletPatternA : MonoBehaviour
 
     private void Update()
     {
-        // Instead of just using the Y angle, this should be able to go in a preset direction instead
+        // Instead of just moving on the Y angle, this should be able to go in a preset direction instead, while still following sinusoidal curve for X
         transform.position = new Vector3(Mathf.Sin(transform.position.y - baseOffsetY) * intensityX, transform.position.y, transform.position.z) + Time.deltaTime * speedY * Vector3.down;
     }
 
