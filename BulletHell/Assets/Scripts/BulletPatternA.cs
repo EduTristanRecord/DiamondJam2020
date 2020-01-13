@@ -9,7 +9,7 @@ public class BulletPatternA : MonoBehaviour
     [SerializeField] private float intensityX = 3f;
 
     private Vector3 startPosition;
-    private float baseOffsetY;
+    private float baseOffsetY; // Used to reset the sinusoidal on start
 
     private void Start()
     {
@@ -21,6 +21,7 @@ public class BulletPatternA : MonoBehaviour
 
     private void Update()
     {
+        // Instead of just using the Y angle, this should be able to go in a preset direction instead
         transform.position = new Vector3(Mathf.Sin(transform.position.y - baseOffsetY) * intensityX, transform.position.y, transform.position.z) + Time.deltaTime * speedY * Vector3.down;
     }
 
