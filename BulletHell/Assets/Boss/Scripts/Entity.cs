@@ -6,9 +6,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(Animator), typeof(SpriteRenderer))]
 public class Entity : MonoBehaviour
 {
-    public Physic physic;
-    public View view;
-    private Animateur anim;
+    protected Physic physic;
+    protected View view;
+    protected Animateur anim;
 
     void Awake()
     {

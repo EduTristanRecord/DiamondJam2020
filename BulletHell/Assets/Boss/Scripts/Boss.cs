@@ -5,5 +5,4 @@ using UnityEngine;
 public class Boss : Entity
 {
     public int life;
-    
 }
