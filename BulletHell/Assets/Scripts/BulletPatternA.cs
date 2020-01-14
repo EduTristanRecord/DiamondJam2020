@@ -4,25 +4,34 @@ using UnityEngine;
 
 public class BulletPatternA : MonoBehaviour
 {
-    [SerializeField] private float resetDelay = 2.5f;
-    [SerializeField] private float speedY = 4f;
-    [SerializeField] private float intensityX = 3f;
+    [SerializeField] private Transform targetDirection;
 
+    [SerializeField] private float resetDelay = 2.5f;
+    [SerializeField] private float intensity = 3f;
+    [SerializeField] private float speed = 4f;
+
+    [SerializeField] private bool update = true;
+
+    private Vector3 direction;
     private Vector3 startPosition;
-    private float baseOffsetY; // Used to reset the sinusoidal on start
+    private Vector3 nonSinusoidalPosition;
 
     private void Start()
     {
         startPosition = transform.position;
-        baseOffsetY = transform.position.y;
+        nonSinusoidalPosition = transform.position;
+
+        direction = (targetDirection.position - startPosition).normalized;
 
         StartCoroutine(PeriodicReset());
     }
 
     private void Update()
     {
-        // Instead of just moving on the Y angle, this should be able to go in a preset direction instead, while still following sinusoidal curve for X
-        transform.position = new Vector3(Mathf.Sin(transform.position.y - baseOffsetY) * intensityX, transform.position.y, transform.position.z) + Time.deltaTime * speedY * Vector3.down;
+        if (update) direction = (targetDirection.position - startPosition).normalized;
+
+        nonSinusoidalPosition += direction * speed * Time.deltaTime;
+        transform.position = nonSinusoidalPosition + Mathf.Sin((nonSinusoidalPosition - startPosition).magnitude) * Vector3.Cross(direction, Vector3.back);
     }
 
     private IEnumerator PeriodicReset()
@@ -36,6 +45,8 @@ public class BulletPatternA : MonoBehaviour
             if (timer >= resetDelay)
             {
                 transform.position = startPosition;
+                nonSinusoidalPosition = startPosition;
+
                 timer -= resetDelay;
             }
 
