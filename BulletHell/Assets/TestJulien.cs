@@ -68,4 +68,17 @@ public class TestJulien : MonoBehaviour
         }
         StartCoroutine(Fire());
     }
+
+
+    void FireAngle(float Angle, float Speed, GameObject Bullet)
+    {        
+        GameObject tampon = Instantiate(Bullet, transform.position, Quaternion.identity);
+        tampon.GetComponent<Rigidbody2D>().velocity = (Quaternion.Euler(0, 0, Angle) * (transform.up * -1)).normalized * Speed;
+    }
+    void FireDir(Vector2 posTarget, float Speed, GameObject Bullet)
+    {
+        GameObject tampon = Instantiate(Bullet, transform.position, Quaternion.identity);
+        tampon.GetComponent<Rigidbody2D>().velocity = new Vector2(posTarget.x - transform.position.x, posTarget.y - transform.position.y).normalized * Speed;
+    }
+
 }
