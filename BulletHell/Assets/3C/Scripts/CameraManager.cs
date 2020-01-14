@@ -28,6 +28,4 @@ public class CameraManager : MonoBehaviour
         }
         transform.localPosition = originalPos;
     }
-
-    public IEnumerator Camera
 }
