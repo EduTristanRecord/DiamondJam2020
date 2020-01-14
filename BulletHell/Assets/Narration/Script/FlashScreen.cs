@@ -11,12 +11,23 @@ public class FlashScreen : MonoBehaviour
     
 
     void Start() {
-        whiteImage.alpha = 0;
+        whiteScreen.alpha = 0;
     }
 
     void Update() {
-        if (flash)
-            whiteScreen.alpha = whiteScreen.alpha - Time.deltaTime;
+        if (flash) {
+            if (whiteScreen.alpha > 0) {
+                whiteScreen.alpha = whiteScreen.alpha - Time.deltaTime;
+            }
+            else if (whiteScreen.alpha <= 0) {
+                whiteScreen.alpha = 0;
+                flash = false;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.E)) {
+            UseFlash();
+        }
     }
 
     public void UseFlash() {
