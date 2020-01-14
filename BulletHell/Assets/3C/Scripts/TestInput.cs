@@ -16,7 +16,6 @@ public class TestInput : MonoBehaviour
     {
 		rb = GetComponent<Rigidbody2D>();
 		player = ReInput.players.GetPlayer(playerId);
-		player = ReInput.players.GetPlayer(playerId);
 	}
 
     // Update is called once per frame
