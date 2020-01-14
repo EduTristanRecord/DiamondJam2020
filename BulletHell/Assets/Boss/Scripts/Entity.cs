@@ -10,7 +10,7 @@ public class Entity : MonoBehaviour
     protected View view;
     protected Animateur anim;
 
-    void Awake()
+    protected virtual void Awake()
     {
         physic = new Physic();
         physic.rigidbody = GetComponent<Rigidbody2D>();
