@@ -6,12 +6,23 @@ public class CameraManager : MonoBehaviour
 {
     public static CameraManager Instance { get; private set; }
 
+    [Header("Camera Move")]
+    [SerializeField] private float CameraSpeed; // vitesse de déplacement de la caméra
+    [SerializeField] private AnimationCurve AnimCurveCamMove; // Animation Curve déplacement caméra
+    [SerializeField] private List<Transform> LiCamPos; // liste de position de la caméra
+
     void Awake()
     {
         Instance = this;
     }
 
-    public IEnumerator ShakeCamera(float duration, float magnitude)
+    void Update()
+    {
+        if (Input.GetKey(KeyCode.B))
+            StartCoroutine(MoveCamera(0));
+    }
+
+    public IEnumerator ShakeCamera(float duration, float magnitude)  // shake camera coroutine
     {
         Vector3 originalPos = transform.localPosition;
 
@@ -27,5 +38,20 @@ public class CameraManager : MonoBehaviour
             yield return null;
         }
         transform.localPosition = originalPos;
+    }
+
+    public IEnumerator MoveCamera(int idPos)   //déplacement Camera
+    {
+        float distance = Vector3.Distance(transform.position, LiCamPos[idPos].position);
+        float duration =  distance / CameraSpeed;
+
+        Vector3 startPos = transform.position;
+        float startTime = Time.time;
+        while(Time.time < startTime + duration)
+        {
+            transform.position = Vector3.Slerp(startPos, LiCamPos[idPos].position, AnimCurveCamMove.Evaluate((Time.time - startTime) / duration));
+            yield return null;
+        }
+        transform.position = LiCamPos[idPos].position;
     }
 }
