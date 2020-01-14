@@ -9,8 +9,8 @@ public class CollectibleSpawnerManager : MonoBehaviour
     [SerializeField] private int maxPresentAtOnce = 3;
     [SerializeField] private int maxSpawnedAtOnce = 2;
 
-    [SerializeField] private float delayBetweenSpawns = 2f;
-    [SerializeField] private float spawnDelay = 2f;
+    [SerializeField] private float delayBetweenSpawns = 2f; // After detecting there is at least one missing, we wait this amount of time
+    [SerializeField] private float spawnDelay = 2f; // After starting the spawn coroutine, we wait this amount of time
     [SerializeField] private float despawnDelay = 6f;
 
     [SerializeField] private Spawnables spawnables;
@@ -123,7 +123,7 @@ public class CollectibleSpawnerManager : MonoBehaviour
 
         foreach (CollectibleSpawn colSp in spawnPositions) if (colSp.containedCollectible == null) emptySpawns.Add(colSp);
 
-        CollectibleSpawn cs = spawnPositions[Random.Range(0, emptySpawns.Count)];
+        CollectibleSpawn cs = emptySpawns[Random.Range(0, emptySpawns.Count)];
         Vector2 randomSpawnPosition = cs.transform.position;
 
         // Spawn at position
