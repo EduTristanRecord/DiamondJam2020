@@ -31,7 +31,7 @@ public class BulletPatternA : MonoBehaviour
         if (update) direction = (targetDirection.position - startPosition).normalized;
 
         nonSinusoidalPosition += direction * speed * Time.deltaTime;
-        transform.position = nonSinusoidalPosition + Mathf.Sin((nonSinusoidalPosition - startPosition).magnitude) * Vector3.Cross(direction, Vector3.back);
+        transform.position = nonSinusoidalPosition + Mathf.Sin((nonSinusoidalPosition - startPosition).magnitude) * Vector3.Cross(direction, Vector3.back) * intensity;
     }
 
     private IEnumerator PeriodicReset()
