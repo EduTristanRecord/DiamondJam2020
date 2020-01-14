@@ -41,9 +41,9 @@ public class CollectibleSpawnerManager : MonoBehaviour
     {
         foreach (Coroutine cor in spawnCoroutines)
         {
-            spawnCoroutines.Remove(cor);
             StopCoroutine(cor);
         }
+        spawnCoroutines.Clear();
 
         foreach (Transform tr in transform)
         {
